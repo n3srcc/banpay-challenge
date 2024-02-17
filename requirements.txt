@@ -1,0 +1,8 @@
+Flask
+flask-jwt-extended
+gunicorn
+flasgger
+pymongo
+bcrypt
+load_dotenv
+requests

@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - app-data:/app
+    depends_on:
+      - mongodb
+    environment:
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - MONGODB_URI=${MONGODB_URI}
+    networks:
+      - adp
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - db-data:/data/db
+    networks:
+      - adp
+    command: ["mongod", "--bind_ip_all"]
+
+networks:
+  adp:
+    driver: bridge
+
+volumes:
+  app-data:
+  db-data:

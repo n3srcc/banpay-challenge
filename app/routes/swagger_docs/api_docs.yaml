@@ -1,0 +1,161 @@
+swagger: '2.0'
+info:
+  title: API Documentation
+  description: Documentación de la API
+  version: '1.0'
+securityDefinitions:
+  JWT:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Token de autorización JWT en formato 'Bearer <JWT>'
+paths:
+  /api/login:
+    post:
+      summary: Inicia sesión
+      description: Inicia sesión de usuario con credenciales
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Credenciales de inicio de sesión
+          required: true
+          schema:
+            type: object
+            properties:
+              user:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: Token de acceso generado correctamente
+          schema:
+            type: object
+            properties:
+              access_token:
+                type: string
+        401:
+          description: Credenciales inválidas
+  /api/users:
+    get:
+      summary: Obtiene todos los usuarios
+      description: Obtiene todos los usuarios registrados en el sistema
+      responses:
+        200:
+          description: Lista de usuarios obtenida correctamente
+          schema:
+            type: object
+            properties:
+              users:
+                type: array
+                items:
+                  type: object
+    post:
+      summary: Crea un nuevo usuario
+      description: Crea un nuevo usuario con los datos proporcionados
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Datos del nuevo usuario
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: Usuario creado exitosamente
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  /api/users/{user_id}:
+    get:
+      summary: Obtiene un usuario por su ID
+      description: Obtiene los detalles de un usuario específico por su ID
+      parameters:
+        - name: user_id
+          in: path
+          description: ID del usuario
+          required: true
+          type: string
+      responses:
+        200:
+          description: Detalles del usuario obtenidos correctamente
+          schema:
+            type: object
+        404:
+          description: Usuario no encontrado
+  /api/films:
+    get:
+      summary: Obtiene todas las películas de Studio Ghibli
+      description: Obtiene todas las películas de Studio Ghibli
+      security:
+        - JWT: []
+      responses:
+        200:
+          description: Lista de películas obtenida correctamente
+          schema:
+            type: object
+            properties:
+              films:
+                type: array
+                items:
+                  type: object
+  /api/people:
+    get:
+      summary: Obtiene todas las personas de Studio Ghibli
+      description: Obtiene todas las personas de Studio Ghibli
+      security:
+        - JWT: []
+      responses:
+        200:
+          description: Lista de personas obtenida correctamente
+          schema:
+            type: object
+            properties:
+              people:
+                type: array
+                items:
+                  type: object
+  /api/locations:
+    get:
+      summary: Obtiene todas las locaciones de Studio Ghibli
+      description: Obtiene todas las locaciones de Studio Ghibli
+      security:
+        - JWT: []
+      responses:
+        200:
+          description: Lista de locaciones obtenida correctamente
+          schema:
+            type: object
+            properties:
+              locations:
+                type: array
+                items:
+                  type: object
+  /api/species:
+    get:
+      summary: Obtiene todas las especies de Studio Ghibli
+      description: Obtiene todas las especies de Studio Ghibli
+      security:
+        - JWT: []
+      responses:
+        200:
+          description: Lista de especies obtenida correctamente
+          schema:
+            type: object
+            properties:
+              species:
+                type: array
+                items:
+                  type: object
+ 
